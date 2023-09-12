@@ -12,7 +12,7 @@ export const fetchCars = async (filterProps: FilterProps) => {
   const { manufacturer, year, model, limit, fuel } = filterProps;
 
   const headers = {
-    'X-RapidAPI-Key': '64441db4femshc9dc21237cf1d94p17ddc7jsnf40878a48594',
+    'X-RapidAPI-Key': process.env.NEXT_PUBLIC_RAPID_API_KEY || '',
     'X-RapidAPI-Host': 'cars-by-api-ninjas.p.rapidapi.com',
   };
 
@@ -26,7 +26,7 @@ export const fetchCars = async (filterProps: FilterProps) => {
       throw new Error('network error');
     }
   } catch (error) {
-    console.error(error);
+    console.log(error);
   }
 };
 
@@ -39,7 +39,6 @@ export const generateCarImageUrl = (car: CarProps, angle?: string) => {
   url.searchParams.append('modelFamily', model.split(' ')[0]);
   url.searchParams.append('zoomType', 'fullscreen');
   url.searchParams.append('modelYear', `${year}`);
-  // url.searchParams.append('zoomLevel', zoomLevel);
   url.searchParams.append('angle', `${angle}`);
 
   return `${url}`;
